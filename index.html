@@ -1,7 +1,77 @@
 <!DOCTYPE html>
-<html>
-<body style="background-color: #007FFF; color: white; text-align: center; font-family: Arial; margin-top: 100px;">
-    <h1 style="font-size: 50px;">Chu De 6 (Nhom 8) - Version 1.0 Blue</h1>
-    <p>He thong dien toan dam may AKS - GitOps</p>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ - AquaCare</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f4f7f9; }
+        .navbar-custom { background-color: #033f63; padding: 15px 0; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .brand-logo { font-size: 1.6rem; font-weight: 900; color: #ffffff; letter-spacing: 1px; text-decoration: none; }
+        .brand-logo i { color: #48cae4; }
+        .hero-section { background: linear-gradient(135deg, #033f63 0%, #0a7090 100%); color: white; padding: 80px 0; text-align: center; border-radius: 0 0 40px 40px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(3, 63, 99, 0.2); }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+        <div class="container">
+            <a class="brand-logo" href="/">
+                <i class="fa-solid fa-fish-fins me-2"></i>AQUACARE
+            </a>
+            
+            <div class="d-flex align-items-center gap-3">
+                {% if current_user.is_authenticated %}
+                    {% if current_user.role_id == 1 %}
+                        <a href="/quan-tri-vien/thong-ke" class="btn btn-warning fw-bold rounded-pill px-4 shadow-sm">
+                            <i class="fa-solid fa-shield-halved me-2"></i>Vào trang Quản trị
+                        </a>
+                    {% endif %}
+                    
+                    {% if current_user.role_id == 2 %}
+                        <a href="/chuyen-gia/kiem-duyet" class="btn btn-success fw-bold rounded-pill px-4 shadow-sm">
+                            <i class="fa-solid fa-microscope me-2"></i>Khu vực Kiểm duyệt
+                        </a>
+                    {% endif %}
+
+                    <a href="/dang-xuat" class="btn btn-outline-light fw-bold rounded-pill px-4">Đăng xuất</a>
+                {% else %}
+                    <a href="/dang-nhap" class="btn btn-outline-light fw-bold rounded-pill px-4">Đăng nhập</a>
+                    <a href="/dang-ky" class="btn btn-info fw-bold text-white rounded-pill px-4 shadow-sm">Đăng ký</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero-section">
+        <div class="container">
+            <h1 class="display-4 fw-bolder mb-3">Hệ thống thông minh AquaCare</h1>
+            <p class="lead mb-4 opacity-75">Nền tảng quản lý thông tin môi trường và hỗ trợ chẩn đoán bệnh cá cho ao nuôi hàng đầu.</p>
+        </div>
+    </div>
+
+    <div class="container mb-5">
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show fw-bold shadow-sm border-0 rounded-4" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="text-center py-5">
+            <i class="fa-solid fa-newspaper text-muted opacity-25 mb-3" style="font-size: 4rem;"></i>
+            <h4 class="fw-bold text-secondary">Tin tức & Bảng tin Nông dân</h4>
+            <p class="text-muted">Các bài viết mới nhất sẽ được hiển thị tại đây sau khi hệ thống có dữ liệu.</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
